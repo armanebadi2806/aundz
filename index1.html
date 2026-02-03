@@ -1,0 +1,362 @@
+/workspace/aramn$ /bin/bash -lc cat <<'EOF' > /workspace/aramn/index.html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Valentinstag – Für dich ❤️</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --pink: #ff6fa5;
+      --rose: #ff2d76;
+      --cream: #fff6f9;
+      --ink: #2b1b24;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #ffe3ee 0%, #fff 60%);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px 80px;
+    }
+
+    .card {
+      width: min(960px, 100%);
+      background: var(--cream);
+      padding: 32px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(255, 77, 129, 0.18);
+      border: 2px solid rgba(255, 77, 129, 0.15);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--rose);
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    section {
+      background: white;
+      padding: 24px;
+      border-radius: 18px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 77, 129, 0.12);
+    }
+
+    section h2 {
+      margin-top: 0;
+      color: var(--rose);
+      font-size: 1.4rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="time"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #f3c5d7;
+      background: #fff;
+      margin-bottom: 16px;
+    }
+
+    .range-wrap {
+      display: grid;
+      gap: 12px;
+    }
+
+    .range-output {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--rose);
+    }
+
+    .love-message {
+      font-size: 1.1rem;
+      background: #ffe7f0;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px dashed var(--pink);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: var(--rose);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(255, 77, 129, 0.24);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button.secondary {
+      background: #f7b0c8;
+      color: #5b1c36;
+      box-shadow: none;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(255, 77, 129, 0.25);
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 16px;
+      border: 2px dashed #ff9ec2;
+      background: #fff7fb;
+      display: none;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .reservation {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid rgba(255, 77, 129, 0.2);
+      margin-top: 12px;
+    }
+
+    .hearts {
+      font-size: 1.4rem;
+      letter-spacing: 6px;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .countdown {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 12px;
+      color: var(--rose);
+    }
+
+    footer {
+      text-align: center;
+      color: #7a4a5d;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <header>
+      <h1>Herzlich willkommen, mein Herz! ❤️</h1>
+      <p>Heute dreht sich alles um uns und unseren Valentinstag.</p>
+    </header>
+
+    <section>
+      <h2>1. Wie sehr liebst du Arman?</h2>
+      <div class="range-wrap">
+        <label for="loveRange">Skala von 1 bis 10</label>
+        <input type="range" id="loveRange" min="1" max="10" value="7" />
+        <div class="range-output" id="loveOutput">7 / 10</div>
+        <div class="love-message" id="loveMessage">Ein guter Start – ich liebe dich auch von Herzen.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Hast du am Valentinstag Zeit?</h2>
+      <div class="grid">
+        <div>
+          <label for="date">Welches Datum passt?</label>
+          <input type="date" id="date" />
+        </div>
+        <div>
+          <label for="time">Lieblingszeit</label>
+          <input type="time" id="time" value="13:00" />
+        </div>
+        <div>
+          <label for="mood">Wie fühlst du dich dabei?</label>
+          <select id="mood">
+            <option>Aufgeregt</option>
+            <option>Geliebt</option>
+            <option>Neugierig</option>
+            <option>Bereit für ein Date</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Ein paar süße Fragen</h2>
+      <label for="memory">Deine schönste Erinnerung mit Arman?</label>
+      <textarea id="memory" rows="3" placeholder="Schreib hier deine Erinnerung..."></textarea>
+
+      <label for="valentines">Wie stellst du dir unseren perfekten Valentinstag vor?</label>
+      <textarea id="valentines" rows="3" placeholder="Was wünschst du dir?"></textarea>
+
+      <label for="favorite">Dein Lieblingsdetail an Arman?</label>
+      <input type="text" id="favorite" placeholder="Zum Beispiel sein Lächeln..." />
+    </section>
+
+    <section>
+      <h2>4. Willst du mein Valentinstagdate sein?</h2>
+      <p>Ich habe schon etwas ganz Besonderes geplant…</p>
+      <div class="button-row">
+        <button type="button" id="btnYes">Ja, ich will! 💖</button>
+        <button type="button" class="secondary" id="btnNo">Noch nicht sicher</button>
+      </div>
+
+      <div class="result" id="resultBox">
+        <h3 id="resultTitle">Yes!</h3>
+        <p id="resultText"></p>
+        <div class="reservation" id="reservation"></div>
+        <div class="countdown" id="countdown"></div>
+        <div class="hearts" id="hearts">💗 💗 💗 💗 💗</div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Mit Liebe gemacht von Arman.</p>
+    </footer>
+  </main>
+
+  <script>
+    const loveRange = document.getElementById("loveRange");
+    const loveOutput = document.getElementById("loveOutput");
+    const loveMessage = document.getElementById("loveMessage");
+
+    const messages = {
+      10: "Arman liebt dich auch über alles!",
+      9: "Fast perfekt – ich liebe dich riesig!",
+      8: "So viel Liebe! Ich freue mich auf unser Date.",
+      7: "Ein guter Start – ich liebe dich auch von Herzen.",
+      6: "Jede Zahl zählt, Hauptsache wir sind zusammen.",
+      5: "Wir wachsen mit jedem Tag mehr zusammen.",
+      4: "Wir machen es noch schöner, versprochen.",
+      3: "Ich schenke dir ganz viel Liebe, bis es 10 ist.",
+      2: "Lass uns zusammen daran arbeiten.",
+      1: "Auch hier: Ich liebe dich und gebe alles."
+    };
+
+    const updateLove = () => {
+      const value = Number(loveRange.value);
+      loveOutput.textContent = `${value} / 10`;
+      loveMessage.textContent = messages[value];
+    };
+
+    loveRange.addEventListener("input", updateLove);
+    updateLove();
+
+    const btnYes = document.getElementById("btnYes");
+    const btnNo = document.getElementById("btnNo");
+    const resultBox = document.getElementById("resultBox");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const reservation = document.getElementById("reservation");
+    const countdown = document.getElementById("countdown");
+    const hearts = document.getElementById("hearts");
+    let countdownTimer;
+
+    const getTargetDate = () => {
+      const dateInput = document.getElementById("date").value;
+      const timeInput = document.getElementById("time").value || "13:00";
+      let target;
+      if (dateInput) {
+        target = new Date(`${dateInput}T${timeInput}:00`);
+      } else {
+        const now = new Date();
+        const year = now.getMonth() > 1 || (now.getMonth() === 1 && now.getDate() > 14) ? now.getFullYear() + 1 : now.getFullYear();
+        target = new Date(`${year}-02-14T13:00:00`);
+      }
+      return target;
+    };
+
+    const renderCountdown = () => {
+      const target = getTargetDate();
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        countdown.textContent = "Unser Date ist jetzt!";
+        hearts.textContent = "💞 💞 💞 💞 💞";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      countdown.textContent = `Countdown: ${days} Tage ${hours} Std ${minutes} Min`;
+    };
+
+    btnYes.addEventListener("click", () => {
+      resultBox.classList.add("show");
+      resultTitle.textContent = "Reservierung bestätigt 💖";
+      resultText.textContent = "Arman plant um 13 Uhr ein Date im Hagenbecks Tierpark, danach schön lecker italienisch essen.";
+      reservation.innerHTML = `
+        <strong>Was du mitbringen musst:</strong>
+        <ul>
+          <li>Dich selbst</li>
+          <li>Schön sein</li>
+          <li>An nichts denken – Arman macht alles</li>
+        </ul>
+      `;
+      hearts.textContent = "💗 💗 💗 💗 💗 💗 💗";
+      renderCountdown();
+      if (countdownTimer) {
+        clearInterval(countdownTimer);
+      }
+      countdownTimer = setInterval(renderCountdown, 60000);
+    });
+
+    btnNo.addEventListener("click", () => {
+      resultBox.classList.add("show");
+      resultTitle.textContent = "Kein Stress";
+      resultText.textContent = "Nimm dir Zeit – Arman wartet geduldig auf dein Ja.";
+      reservation.textContent = "Wenn du bereit bist, sag einfach Ja.";
+      countdown.textContent = "";
+      hearts.textContent = "💗 💗 💗";
+      if (countdownTimer) {
+        clearInterval(countdownTimer);
+      }
+    });
+  </script>
+</body>
+</html>
+EOF
