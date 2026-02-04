@@ -20,26 +20,66 @@
 
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #ffe3ee 0%, #fff 60%);
+      background: radial-gradient(circle at top, #ffe3ee 0%, #ffd1e3 45%, #fff 100%);
       color: var(--ink);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       padding: 32px 16px 80px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    body::before {
+      top: -60px;
+      left: -40px;
+      background: radial-gradient(circle, #ffb3d1 0%, rgba(255, 179, 209, 0) 70%);
+    }
+
+    body::after {
+      bottom: -90px;
+      right: -60px;
+      background: radial-gradient(circle, #ffc2e0 0%, rgba(255, 194, 224, 0) 70%);
     }
 
     .card {
       width: min(960px, 100%);
-      background: var(--cream);
+      background: linear-gradient(180deg, #fff 0%, #fff6f9 100%);
       padding: 32px;
       border-radius: 24px;
       box-shadow: 0 20px 60px rgba(255, 77, 129, 0.18);
       border: 2px solid rgba(255, 77, 129, 0.15);
+      position: relative;
+      z-index: 1;
     }
 
     header {
       text-align: center;
       margin-bottom: 32px;
+    }
+
+    header .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255, 111, 165, 0.15);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      color: #7c2845;
+      margin-bottom: 12px;
     }
 
     header h1 {
@@ -59,6 +99,7 @@
       border-radius: 18px;
       margin-bottom: 24px;
       border: 1px solid rgba(255, 77, 129, 0.12);
+      box-shadow: 0 12px 30px rgba(255, 77, 129, 0.08);
     }
 
     section h2 {
@@ -82,8 +123,9 @@
       padding: 12px 14px;
       border-radius: 12px;
       border: 1px solid #f3c5d7;
-      background: #fff;
+      background: #fffafc;
       margin-bottom: 16px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
     }
 
     .range-wrap {
@@ -122,7 +164,7 @@
       border: none;
       padding: 12px 20px;
       border-radius: 999px;
-      background: var(--rose);
+      background: linear-gradient(135deg, #ff4d8a 0%, #ff2d76 100%);
       color: white;
       font-size: 1rem;
       cursor: pointer;
@@ -131,7 +173,7 @@
     }
 
     button.secondary {
-      background: #f7b0c8;
+      background: linear-gradient(135deg, #ffd1e1 0%, #f7b0c8 100%);
       color: #5b1c36;
       box-shadow: none;
     }
@@ -146,12 +188,39 @@
       padding: 20px;
       border-radius: 16px;
       border: 2px dashed #ff9ec2;
-      background: #fff7fb;
+      background: linear-gradient(180deg, #fff7fb 0%, #ffeef5 100%);
       display: none;
+      transform: scale(0.96);
+      opacity: 0;
     }
 
     .result.show {
       display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .result.pop {
+      animation: popIn 0.6s ease forwards;
+    }
+
+    .result.celebrate {
+      box-shadow: 0 18px 40px rgba(255, 77, 129, 0.25);
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(10px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.02) translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .reservation {
@@ -160,6 +229,43 @@
       padding: 16px;
       border: 1px solid rgba(255, 77, 129, 0.2);
       margin-top: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reservation::after {
+      content: "💖";
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 1.5rem;
+      opacity: 0.4;
+    }
+
+    .burst {
+      position: relative;
+      height: 0;
+    }
+
+    .burst span {
+      position: absolute;
+      font-size: 1.2rem;
+      animation: floatUp 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-40px) scale(1.2);
+        opacity: 0;
+      }
     }
 
     .hearts {
@@ -167,6 +273,7 @@
       letter-spacing: 6px;
       text-align: center;
       margin-top: 12px;
+      text-shadow: 0 6px 12px rgba(255, 77, 129, 0.2);
     }
 
     .countdown {
@@ -182,16 +289,33 @@
       color: #7a4a5d;
       margin-top: 32px;
     }
+
+    #loginCard {
+      width: min(720px, 100%);
+    }
+
+    #loginCard header {
+      margin-bottom: 16px;
+    }
+
+    #loginCard section {
+      background: linear-gradient(180deg, #ffffff 0%, #fff3f8 100%);
+    }
+
+    #loginMessage {
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
-  <main class="card">
+  <main class="card" id="mainContent" hidden>
     <header>
+      <div class="badge">💌 Überraschung wartet</div>
       <h1>Herzlich willkommen, mein Herz! ❤️</h1>
       <p>Heute dreht sich alles um uns und unseren Valentinstag.</p>
     </header>
 
-    <section>
+    <section class="step" data-step="1">
       <h2>1. Wie sehr liebst du Arman?</h2>
       <div class="range-wrap">
         <label for="loveRange">Skala von 1 bis 10</label>
@@ -199,9 +323,12 @@
         <div class="range-output" id="loveOutput">7 / 10</div>
         <div class="love-message" id="loveMessage">Ein guter Start – ich liebe dich auch von Herzen.</div>
       </div>
+      <div class="button-row">
+        <button type="button" class="secondary next-step" data-next="2">Weiter 💞</button>
+      </div>
     </section>
 
-    <section>
+    <section class="step" data-step="2" hidden>
       <h2>2. Hast du am Valentinstag Zeit?</h2>
       <div class="grid">
         <div>
@@ -222,9 +349,12 @@
           </select>
         </div>
       </div>
+      <div class="button-row">
+        <button type="button" class="secondary next-step" data-next="3">Weiter 🌸</button>
+      </div>
     </section>
 
-    <section>
+    <section class="step" data-step="3" hidden>
       <h2>3. Ein paar süße Fragen</h2>
       <label for="memory">Deine schönste Erinnerung mit Arman?</label>
       <textarea id="memory" rows="3" placeholder="Schreib hier deine Erinnerung..."></textarea>
@@ -234,9 +364,12 @@
 
       <label for="favorite">Dein Lieblingsdetail an Arman?</label>
       <input type="text" id="favorite" placeholder="Zum Beispiel sein Lächeln..." />
+      <div class="button-row">
+        <button type="button" class="secondary next-step" data-next="4">Weiter ✨</button>
+      </div>
     </section>
 
-    <section>
+    <section class="step" data-step="4" hidden>
       <h2>4. Willst du mein Valentinstagdate sein?</h2>
       <p>Ich habe schon etwas ganz Besonderes geplant…</p>
       <div class="button-row">
@@ -247,6 +380,7 @@
       <div class="result" id="resultBox">
         <h3 id="resultTitle">Yes!</h3>
         <p id="resultText"></p>
+        <div class="burst" id="burst"></div>
         <div class="reservation" id="reservation"></div>
         <div class="countdown" id="countdown"></div>
         <div class="hearts" id="hearts">💗 💗 💗 💗 💗</div>
@@ -258,10 +392,47 @@
     </footer>
   </main>
 
+  <div class="card" id="loginCard">
+    <header>
+      <div class="badge">🔒 Nur für Zahra</div>
+      <h1>Hey✨</h1>
+      <p>Bevor du die Überraschung siehst, eine kleine Frage:</p>
+    </header>
+    <section>
+      <h2>Wann sind Arman und Zahra zusammen gekommen?</h2>
+      <label for="loginAnswer">Bitte Datum eingeben (TT.MM.JJJJ)</label>
+      <input type="text" id="loginAnswer" placeholder="TT.MM.JJJJ" />
+      <div class="button-row">
+        <button type="button" id="loginButton">Antwort prüfen</button>
+      </div>
+      <p class="love-message" id="loginMessage" hidden></p>
+    </section>
+  </div>
+
   <script>
+    const mainContent = document.getElementById("mainContent");
+    const loginCard = document.getElementById("loginCard");
+    const loginButton = document.getElementById("loginButton");
+    const loginAnswer = document.getElementById("loginAnswer");
+    const loginMessage = document.getElementById("loginMessage");
+
+    const normalizeAnswer = (value) => value.replace(/\s+/g, "").trim();
+
+    loginButton.addEventListener("click", () => {
+      const answer = normalizeAnswer(loginAnswer.value);
+      if (answer === "16.04.2024") {
+        loginCard.hidden = true;
+        mainContent.hidden = false;
+      } else {
+        loginMessage.hidden = false;
+        loginMessage.textContent = "Du bist nicht Zahra! Hör auf zu stalken!.";
+      }
+    });
+
     const loveRange = document.getElementById("loveRange");
     const loveOutput = document.getElementById("loveOutput");
     const loveMessage = document.getElementById("loveMessage");
+    const nextButtons = document.querySelectorAll(".next-step");
 
     const messages = {
       10: "Arman liebt dich auch über alles!",
@@ -285,15 +456,45 @@
     loveRange.addEventListener("input", updateLove);
     updateLove();
 
+    nextButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextStep = button.dataset.next;
+        const currentSection = button.closest(".step");
+        const nextSection = document.querySelector(`.step[data-step="${nextStep}"]`);
+        if (currentSection) {
+          currentSection.hidden = true;
+        }
+        if (nextSection) {
+          nextSection.hidden = false;
+          nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
     const btnYes = document.getElementById("btnYes");
     const btnNo = document.getElementById("btnNo");
     const resultBox = document.getElementById("resultBox");
     const resultTitle = document.getElementById("resultTitle");
     const resultText = document.getElementById("resultText");
+    const burst = document.getElementById("burst");
     const reservation = document.getElementById("reservation");
     const countdown = document.getElementById("countdown");
     const hearts = document.getElementById("hearts");
     let countdownTimer;
+
+    const triggerBurst = () => {
+      burst.innerHTML = "";
+      const icons = ["💖", "💘", "💞", "✨", "💗"];
+      for (let i = 0; i < 8; i += 1) {
+        const span = document.createElement("span");
+        const left = Math.random() * 80 + 10;
+        const delay = Math.random() * 0.2;
+        span.textContent = icons[Math.floor(Math.random() * icons.length)];
+        span.style.left = `${left}%`;
+        span.style.animationDelay = `${delay}s`;
+        burst.appendChild(span);
+      }
+    };
 
     const getTargetDate = () => {
       const dateInput = document.getElementById("date").value;
@@ -325,7 +526,8 @@
     };
 
     btnYes.addEventListener("click", () => {
-      resultBox.classList.add("show");
+      resultBox.classList.add("show", "pop", "celebrate");
+      triggerBurst();
       resultTitle.textContent = "Reservierung bestätigt 💖";
       resultText.textContent = "Arman plant um 13 Uhr ein Date im Hagenbecks Tierpark, danach schön lecker italienisch essen.";
       reservation.innerHTML = `
@@ -346,9 +548,11 @@
 
     btnNo.addEventListener("click", () => {
       resultBox.classList.add("show");
-      resultTitle.textContent = "Kein Stress";
-      resultText.textContent = "Nimm dir Zeit – Arman wartet geduldig auf dein Ja.";
-      reservation.textContent = "Wenn du bereit bist, sag einfach Ja.";
+      resultBox.classList.remove("pop");
+      resultBox.classList.remove("celebrate");
+      resultTitle.textContent = "Wie NEIN???";
+      resultText.textContent = "Boro gom sho";
+      reservation.textContent = "Drück sofort ja!.";
       countdown.textContent = "";
       hearts.textContent = "💗 💗 💗";
       if (countdownTimer) {
@@ -358,4 +562,3 @@
   </script>
 </body>
 </html>
-EOF
